@@ -1,0 +1,54 @@
+RXJS
+1. Giới thiệu
+	- Reactive programming là lập trình với các luồng dữ liệu bất đồng bộ
+	- Observable: đại diện cho khái niệm về một tập hợp các giá trị hoặc các sự kiện trong tương lai. Khi các giá trị hoặc sự kiện phát sinh trong tương lai, Observable sẽ điều phối nó đến Observer
+	- Observer: là một tập hợp các callbacks tương ứng cho việc lắng nghe các giá trị(next, error, complete) được gửi đến bởi Observable
+	- Subscription: là kết quả có được sau khi thực hiện một Observable, nó thường dùng cho việc hủy việc tiếp tục xử lý Observable
+	- Operators: là các pure functions cho phép lập trình functional với Observable
+	- Subject: để thực hiện việc gửi dữ liệu đến nhiều Observers (multicasting)
+	- Schedulers: một scheduler sẽ điều khiển khi nào một subscription bắt đầu thực thi, và khi nào sẽ gửi tín hiệu đi
+2. Array trong javascript
+3. Producer vs Consumer, Push vs Pull
+	- Producer: là nguồn sản sinh ra data
+	- Consumer: là nơi chế biến data sản sinh từ Producer
+	- Pull systems: Consumer sẽ quyết định khi nào lấy data từ Producer
+	- Push systems: Producer sẽ quyết định khi nào gửi data cho Consumer
+4. Observable
+5. Làm quen với observable
+	5.1 Creating observable
+		- Để tạo một observable chúng ta sử dụng operator : Rx.Observable.create, nó là một alias cho Observable constructor
+		- Đầu vào của constructor yêu cầu một hàm gọi là subscribe mà hàm này có đầu vào là một observer object
+		- Example :
+		const observable = Rx.Observable.create(function subscribe(observer) {
+			const id = setInterval(() => {
+				observer.next('Hello Rxjs');
+			}, 1000);
+		});
+		- Ngoài cách sử dụng từ khóa new hoặc Rx.Observable.create chúng ta có thể tạo mới observable bằng các operators : of, from, interval,...
+		- Example :
+		const arr = [1, 2, 3, 4, 5]
+		const observable = Rx.Observable.from(arr)
+	5.2 Subscribing to Observable
+		- observable.subscribe(val => console.log(val));
+	5.3 Executing Observable
+		- Khi chúng ta subscribe một observable thì observable sẽ thực thi
+	5.4 Disposing observable
+		- Lưu ý : khi tạo Observable bằng create hoặc new thì bạn phải tự thiết lập cơ chế để hủy
+		- Hủy một observable bằng các sử dụng hàm unsubscribe()
+6. Observer
+7. Subscription
+8. Cold Observable và Hot Observable
+9. Subject
+	Mục đích của subject là để gửi dữ liệu cho nhiều observer cùng một lúc
+	9.1 BehaviorSubject
+		- BehaviorSubject lưu trữ lại giá trị mới emit gần nhất để khi một Observer mới vào subscribe, nó sẽ emit giá trị đó ngay lập tức cho observer vừa rồi
+		- Lưu ý: behaviorSubject yêu cầu phải có gái trị khởi tạo khi tạo ra subject
+	9.2 ReplaySubject
+		- Tương tự như BehaviorSubject nhưng nó có thể lưu trữ nhiều giá trị
+	9.3 AsyncSubject
+		- Đây là biến thể chỉ emit giá trị cuối cùng của Observable execution cho các observer và chỉ khi execution complete
+		- Lưu ý : nếu stream không complete thì không có gì được emit cả
+	9.4 Subject complete
+10. Operators
+	Operator là một pure function, với cùng một giá trị đầu vào chúng ta sẽ luôn có cùng một giá trị ở đầu ra
+	Operator nhận đầu vào là một Observable, sau đó xử lý và tạo mới một Observable để trả về và giữ Observable đầu vào không bị thay đổi gì
