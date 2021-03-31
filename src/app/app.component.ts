@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, fromEventPattern, interval, of, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
     this.testBehaviorSubject();
     this.testReplaySubject();
     this.testAsyncSubject();
+    this.testCreationOperators();
   }
   
   testArrayForeach() {
@@ -114,6 +115,39 @@ export class AppComponent implements OnInit{
       console.log('asyncSubject 2 : ', val);
     })
     asyncSubject.complete();
+  }
+
+  eventClick1() {
+    console.log('Event click 1');
+  }
+
+  eventClick2() {
+    console.log('Event click 2');
+  }
+
+  testCreationOperators() {
+    // creation operator : Of
+    const arr1 = [1, 2, 3, 4, 5];
+    const arr2 = [6, 7, 8, 9];
+    const name = 'Anh son';
+    const age = 27;
+    const operatorOf = of(arr1, arr2, name, age);
+    operatorOf.subscribe(val => {
+      console.log('operator of : ', val);
+    })
+
+    //creation operator : interval
+    // const arr3 = [1, 2, 3, 4, 5];
+    // const operatorInterval = interval(500);
+    // operatorInterval.subscribe(val => {
+    //   console.log('operator interval : ', val);
+    // })
+
+    //creation operator for event : fromEventPattern
+    const eventOfMe = fromEventPattern(this.eventClick1, this.eventClick2);
+    eventOfMe.subscribe(val => {
+      console.log('fromEventPattern : ', val);
+    })
   }
 
 }

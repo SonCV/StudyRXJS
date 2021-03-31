@@ -52,3 +52,17 @@ RXJS
 10. Operators
 	Operator là một pure function, với cùng một giá trị đầu vào chúng ta sẽ luôn có cùng một giá trị ở đầu ra
 	Operator nhận đầu vào là một Observable, sau đó xử lý và tạo mới một Observable để trả về và giữ Observable đầu vào không bị thay đổi gì
+	10.1 Instance operators và static operators
+		- Static operator thường được dùng để tạo mới Observable
+		- Ví dụ : of, from, interval, fromPromise, empty, ...
+	10.2 Creation operators
+		- Ngoài create operator để tạo observable chúng ta vẫn còn một số operator khác để tạo observable
+		- Of: tạo observable
+		- interval: thay vì tự tạo interval với setInterval, chúng ta dùng operator này cho mục đích tương tự
+		- timer: giống setTimeout, sau một khoảng thời gian sẽ emit value
+		- throw: để bắn ra error
+		- empty: không gửi gì khác ngoài complete signal
+		- never: không gửi bất kỳ loại signals nào
+		- Tổng quát cho các loại event thì chúng ta có : fromEventPattern
+		- fromPromise: để convert từ promise sang observable
+		- from: là operator tạo mới một observable từ array, array-like object, promise, iterable object, hoặc observable-like object
